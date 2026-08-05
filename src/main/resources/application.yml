@@ -4,15 +4,10 @@ server:
 spring:
   datasource:
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/mensagem
+    url: jdbc:postgresql://localhost:5432/escola
     username: igor
     password: 1234
   jpa:
     hibernate:
       ddl-auto: create
     show-sql: true
-
-
-
-            
-            

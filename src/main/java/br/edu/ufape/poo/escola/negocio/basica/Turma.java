@@ -1,4 +1,4 @@
-package br.edu.ufape.poo.mensageria.negocio.basica;
+package br.edu.ufape.poo.escola.negocio.basica;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;

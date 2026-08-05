@@ -8,10 +8,10 @@
 		<version>4.1.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>br.edu.ufape.poo.mensageria</groupId>
-	<artifactId>mensageria</artifactId>
+	<groupId>br.edu.ufape.poo.escola</groupId>
+	<artifactId>escola</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>mensageria</name>
+	<name>escola</name>
 	<description/>
 	<url/>
 	<licenses>

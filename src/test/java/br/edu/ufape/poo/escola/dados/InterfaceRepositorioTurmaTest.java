@@ -1,4 +1,4 @@
-package br.edu.ufape.poo.mensageria.negocio.dados;
+package br.edu.ufape.poo.escola.dados;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -7,9 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import br.edu.ufape.poo.mensageria.dados.InterfaceRepositorioTurma;
-import br.edu.ufape.poo.mensageria.negocio.basica.Disciplina;
-import br.edu.ufape.poo.mensageria.negocio.basica.Turma;
+import br.edu.ufape.poo.escola.negocio.basica.Disciplina;
+import br.edu.ufape.poo.escola.negocio.basica.Turma;
 
 @SpringBootTest
 class InterfaceRepositorioTurmaTest {
