@@ -2,7 +2,7 @@
 
 Projeto acadêmico desenvolvido em Java com Spring Boot e persistência JPA em PostgreSQL.
 
-Atualmente, o projeto contém as entidades `Pessoa`, `Disciplina` e `Turma`. Uma turma possui vínculo com uma disciplina por meio de uma associação JPA `ManyToOne`.
+Atualmente, o projeto contém as entidades `Pessoa`, `Aluno`, `Professor`, `Disciplina` e `Turma`. `Aluno` e `Professor` herdam de `Pessoa`, enquanto uma turma possui vínculo com uma disciplina por meio de uma associação JPA `ManyToOne`.
 
 ## Tecnologias
 
@@ -105,6 +105,8 @@ Os testes de repositório verificam:
 
 - persistência e consulta de disciplinas;
 - persistência e consulta de pessoas por CPF e e-mail;
+- persistência e consulta de alunos por matrícula;
+- persistência e consulta de professores;
 - persistência de uma turma vinculada a uma disciplina.
 
 Cada teste utiliza uma transação com rollback, evitando que os registros criados pelo teste permaneçam no banco.
@@ -117,19 +119,25 @@ src/
 │   ├── java/br/edu/ufape/poo/escola/
 │   │   ├── EscolaApplication.java
 │   │   ├── dados/
+│   │   │   ├── InterfaceRepositorioAluno.java
 │   │   │   ├── InterfaceRepositorioDisciplina.java
 │   │   │   ├── InterfaceRepositorioPessoa.java
+│   │   │   ├── InterfaceRepositorioProfessor.java
 │   │   │   └── InterfaceRepositorioTurma.java
 │   │   └── negocio/basica/
+│   │       ├── Aluno.java
 │   │       ├── Disciplina.java
 │   │       ├── Pessoa.java
+│   │       ├── Professor.java
 │   │       └── Turma.java
 │   └── resources/
 │       ├── application.properties
 │       └── application.yml
 └── test/java/br/edu/ufape/poo/escola/dados/
+    ├── InterfaceRepositorioAlunoTest.java
     ├── InterfaceRepositorioDisciplinaTest.java
     ├── InterfaceRepositorioPessoaTest.java
+    ├── InterfaceRepositorioProfessorTest.java
     └── InterfaceRepositorioTurmaTest.java
 ```
 
