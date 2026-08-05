@@ -3,8 +3,8 @@ package br.edu.ufape.poo.mensageria.dados;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import br.edu.ufape.poo.mensageria.negocio.basica.Disciplina;
+import br.edu.ufape.poo.mensageria.negocio.basica.Turma;
 
 @Repository
-public interface InterfaceRepositorioDisciplina extends JpaRepository<Disciplina, Long> {
+public interface InterfaceRepositorioTurma extends JpaRepository<Turma, Long> {
 }
