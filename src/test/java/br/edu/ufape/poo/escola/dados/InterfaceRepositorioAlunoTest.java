@@ -32,5 +32,8 @@ class InterfaceRepositorioAlunoTest {
 		assertNotNull(encontrado);
 		assertEquals("Ana Souza", encontrado.getNome());
 		assertEquals("2026001", encontrado.getMatricula());
+		assertEquals(
+				"Aluno: Ana Souza | Matricula: 2026001 | E-mail: ana@escola.com",
+				encontrado.exibirDados());
 	}
 }

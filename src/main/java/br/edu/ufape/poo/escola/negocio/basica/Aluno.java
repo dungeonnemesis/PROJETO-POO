@@ -1,10 +1,14 @@
 package br.edu.ufape.poo.escola.negocio.basica;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Aluno extends Pessoa {
 
+	@NotBlank
+	@Column(nullable = false, unique = true)
 	private String matricula;
 
 	protected Aluno() {
@@ -18,7 +22,9 @@ public class Aluno extends Pessoa {
 
 	@Override
 	public String exibirDados() {
-		return "Aluno: " + getNome() + ", matricula: " + matricula;
+		return "Aluno: " + getNome()
+				+ " | Matricula: " + matricula
+				+ " | E-mail: " + getEmail();
 	}
 
 	public String getMatricula() {

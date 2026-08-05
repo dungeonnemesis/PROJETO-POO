@@ -1,10 +1,14 @@
 package br.edu.ufape.poo.escola.negocio.basica;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Professor extends Pessoa {
 
+	@NotBlank
+	@Column(nullable = false)
 	private String especialidade;
 
 	protected Professor() {
@@ -18,7 +22,9 @@ public class Professor extends Pessoa {
 
 	@Override
 	public String exibirDados() {
-		return "Professor: " + getNome() + ", especialidade: " + especialidade;
+		return "Professor: " + getNome()
+				+ " | Especialidade: " + especialidade
+				+ " | E-mail: " + getEmail();
 	}
 
 	public String getEspecialidade() {
