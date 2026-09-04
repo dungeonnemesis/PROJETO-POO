@@ -1,12 +1,16 @@
 package br.edu.ufape.poo.escola.negocio.basica;
 
+import java.util.ArrayList;
+import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Turma {
@@ -17,28 +21,35 @@ public class Turma {
 
 	private String nome;
 	private Integer ano;
+	private String turno;
 
-	@ManyToOne(optional = false, cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "disciplina_id", nullable = false)
-	private Disciplina disciplina;
-
-	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "professor_id")
-	private Professor professor;
+	@OneToMany(mappedBy = "turma", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	private List<TurmaDisciplina> grade = new ArrayList<>();
 
 	protected Turma() {
 		// Construtor exigido pelo JPA.
 	}
 
+	public Turma(String nome, Integer ano) {
+		this.nome = nome;
+		this.ano = ano;
+	}
+
+	public Turma(String nome, Integer ano, String turno) {
+		this.nome = nome;
+		this.ano = ano;
+		this.turno = turno;
+	}
+
 	public Turma(String nome, Integer ano, Disciplina disciplina, Professor professor) {
 		this.nome = nome;
 		this.ano = ano;
-		this.disciplina = disciplina;
-		this.professor = professor;
+		if (disciplina != null && professor != null) grade.add(new TurmaDisciplina(this, disciplina, professor));
 	}
 
 	public Turma(String nome, Integer ano, Disciplina disciplina) {
-		this(nome, ano, disciplina, null);
+		this.nome = nome;
+		this.ano = ano;
 	}
 
 	public Long getId() {
@@ -61,19 +72,13 @@ public class Turma {
 		this.ano = ano;
 	}
 
-	public Disciplina getDisciplina() {
-		return disciplina;
-	}
+	public String getTurno() { return turno; }
+	public void setTurno(String turno) { this.turno = turno; }
 
-	public void setDisciplina(Disciplina disciplina) {
-		this.disciplina = disciplina;
-	}
+	public List<TurmaDisciplina> getGrade() { return grade; }
 
-	public Professor getProfessor() {
-		return professor;
-	}
-
-	public void setProfessor(Professor professor) {
-		this.professor = professor;
-	}
+	public Disciplina getDisciplina() { return grade.isEmpty() ? null : grade.get(0).getDisciplina(); }
+	public Professor getProfessor() { return grade.isEmpty() ? null : grade.get(0).getProfessor(); }
+	public void setDisciplina(Disciplina disciplina) { }
+	public void setProfessor(Professor professor) { }
 }

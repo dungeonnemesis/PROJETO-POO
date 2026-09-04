@@ -62,18 +62,6 @@ public class EscolaController {
 
     @PostMapping("/turmas")
     public ResponseEntity<Turma> criarTurma(@RequestBody Turma turma) {
-        Disciplina disciplina = turma.getDisciplina();
-
-        if (disciplina == null || disciplina.getNome() == null || disciplina.getNome().isBlank()) {
-            throw new IllegalArgumentException("A disciplina da turma é obrigatória.");
-        }
-
-        Disciplina disciplinaExistente = repositorioDisciplina.findByNome(disciplina.getNome());
-        if (disciplinaExistente == null) {
-            disciplinaExistente = escolaFacade.criarDisciplina(disciplina);
-        }
-
-        turma.setDisciplina(disciplinaExistente);
         Turma salvo = escolaFacade.criarTurma(turma);
         return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
     }

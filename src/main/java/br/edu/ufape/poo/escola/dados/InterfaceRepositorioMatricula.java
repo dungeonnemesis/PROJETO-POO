@@ -5,4 +5,5 @@ import br.edu.ufape.poo.escola.negocio.basica.Matricula;
 
 public interface InterfaceRepositorioMatricula extends JpaRepository<Matricula, Long> {
 	boolean existsByAlunoIdAndTurmaId(Long alunoId, Long turmaId);
+	boolean existsByAlunoIdAndTurmaAnoAndStatusIgnoreCase(Long alunoId, Integer ano, String status);
 }

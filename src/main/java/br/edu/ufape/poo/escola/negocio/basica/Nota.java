@@ -19,6 +19,10 @@ public class Nota {
 	@JoinColumn(name = "matricula_id", nullable = false)
 	private Matricula matricula;
 
+	@ManyToOne
+	@JoinColumn(name = "turma_disciplina_id")
+	private TurmaDisciplina grade;
+
 	protected Nota() {}
 
 	public Nota(Double valor, Matricula matricula) {
@@ -26,9 +30,16 @@ public class Nota {
 		this.matricula = matricula;
 	}
 
+	public Nota(Double valor, Matricula matricula, TurmaDisciplina grade) {
+		this(valor, matricula);
+		this.grade = grade;
+	}
+
 	public Long getId() { return id; }
 	public Double getValor() { return valor; }
 	public void setValor(Double valor) { this.valor = valor; }
 	public Matricula getMatricula() { return matricula; }
 	public void setMatricula(Matricula matricula) { this.matricula = matricula; }
+	public TurmaDisciplina getGrade() { return grade; }
+	public void setGrade(TurmaDisciplina grade) { this.grade = grade; }
 }

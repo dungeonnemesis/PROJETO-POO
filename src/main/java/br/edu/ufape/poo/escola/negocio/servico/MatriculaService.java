@@ -21,11 +21,16 @@ public class MatriculaService {
 	@Transactional(readOnly = true) public List<Matricula> listar() { return repositorio.findAll(); }
 	@Transactional(readOnly = true) public Matricula buscar(Long id) { return repositorio.findById(id).orElseThrow(() -> new RecursoNaoEncontradoException("Matricula", id)); }
 	@Transactional public Matricula criar(MatriculaRequest dto) {
+		var turma = turmaService.buscar(dto.turmaId());
+		if (repositorio.existsByAlunoIdAndTurmaAnoAndStatusIgnoreCase(dto.alunoId(), turma.getAno(), "ATIVA"))
+			throw new DataIntegrityViolationException("Aluno ja possui matricula ativa neste ano");
 		if (repositorio.existsByAlunoIdAndTurmaId(dto.alunoId(), dto.turmaId())) throw new DataIntegrityViolationException("Aluno ja matriculado na turma");
-		return repositorio.save(new Matricula(dto.data(), dto.status(), alunoService.buscar(dto.alunoId()), turmaService.buscar(dto.turmaId())));
+		return repositorio.save(new Matricula(dto.data() == null ? java.time.LocalDate.now() : dto.data(), dto.status(), alunoService.buscar(dto.alunoId()), turma));
 	}
 	@Transactional public Matricula atualizar(Long id, MatriculaRequest dto) {
-		Matricula m = buscar(id); m.setData(dto.data()); m.setStatus(dto.status()); m.setAluno(alunoService.buscar(dto.alunoId())); m.setTurma(turmaService.buscar(dto.turmaId())); return repositorio.save(m);
+		Matricula m = buscar(id); m.setData(dto.data() == null ? java.time.LocalDate.now() : dto.data()); m.setStatus(dto.status()); m.setAluno(alunoService.buscar(dto.alunoId()));
+		m.setTurma(turmaService.buscar(dto.turmaId()));
+		return repositorio.save(m);
 	}
 	@Transactional public void excluir(Long id) { repositorio.delete(buscar(id)); }
 }

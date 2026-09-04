@@ -9,5 +9,6 @@ public record NotaRequest(
 		@NotNull(message = "O valor e obrigatorio")
 		@DecimalMin(value = "0.0", message = "A nota minima e zero")
 		@DecimalMax(value = "10.0", message = "A nota maxima e dez") Double valor,
-		@NotNull(message = "A matricula e obrigatoria") @Positive(message = "A matricula e invalida") Long matriculaId) {
+		@NotNull(message = "A matricula e obrigatoria") @Positive(message = "A matricula e invalida") Long matriculaId,
+		@NotNull(message = "A disciplina e obrigatoria") @Positive(message = "A disciplina e invalida") Long gradeId) {
 }

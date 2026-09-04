@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"aluno_id", "turma_id"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"aluno_id", "turma_disciplina_id"}))
 public class Matricula {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +28,10 @@ public class Matricula {
 	@JoinColumn(name = "turma_id", nullable = false)
 	private Turma turma;
 
+	@ManyToOne
+	@JoinColumn(name = "turma_disciplina_id")
+	private TurmaDisciplina grade;
+
 	protected Matricula() {}
 
 	public Matricula(LocalDate data, String status, Aluno aluno, Turma turma) {
@@ -35,6 +39,11 @@ public class Matricula {
 		this.status = status;
 		this.aluno = aluno;
 		this.turma = turma;
+	}
+
+	public Matricula(LocalDate data, String status, Aluno aluno, TurmaDisciplina grade) {
+		this(data, status, aluno, grade.getTurma());
+		this.grade = grade;
 	}
 
 	public Matricula(Aluno aluno, Turma turma) {
@@ -50,4 +59,6 @@ public class Matricula {
 	public void setAluno(Aluno aluno) { this.aluno = aluno; }
 	public Turma getTurma() { return turma; }
 	public void setTurma(Turma turma) { this.turma = turma; }
+	public TurmaDisciplina getGrade() { return grade; }
+	public void setGrade(TurmaDisciplina grade) { this.grade = grade; if (grade != null) this.turma = grade.getTurma(); }
 }
