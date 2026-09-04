@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.edu.ufape.poo.escola.negocio.basica.Disciplina;
 import br.edu.ufape.poo.escola.negocio.basica.Turma;
+import br.edu.ufape.poo.escola.negocio.basica.Professor;
 
 @SpringBootTest
 @Transactional
@@ -21,7 +22,8 @@ class InterfaceRepositorioTurmaTest {
 	@Test
 	void deveSalvarTurmaVinculadaADisciplina() {
 		Disciplina disciplina = new Disciplina("Programacao Orientada a Objetos", 60);
-		Turma turma = new Turma("Turma 2026.1", 2026, disciplina);
+		Professor professor = new Professor("Carlos Lima", "55566677788", "carlos.turma@escola.com", "POO");
+		Turma turma = new Turma("Turma 2026.1", 2026, disciplina, professor);
 
 		Turma salva = repositorio.save(turma);
 		Turma encontrada = repositorio.findById(salva.getId()).orElseThrow();
@@ -30,5 +32,6 @@ class InterfaceRepositorioTurmaTest {
 		assertNotNull(encontrada.getDisciplina().getId());
 		assertEquals("Turma 2026.1", encontrada.getNome());
 		assertEquals("Programacao Orientada a Objetos", encontrada.getDisciplina().getNome());
+		assertEquals("Carlos Lima", encontrada.getProfessor().getNome());
 	}
 }

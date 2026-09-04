@@ -17,8 +17,8 @@ import br.edu.ufape.poo.escola.negocio.basica.Disciplina;
 import br.edu.ufape.poo.escola.negocio.basica.Turma;
 import br.edu.ufape.poo.escola.negocio.fachada.EscolaFacade;
 
-@RestController
-@RequestMapping("/api")
+// Controller legado mantido apenas como referência. A API atual usa os
+// controllers tipados do pacote comunicacao.
 public class EscolaController {
 
     private final EscolaFacade escolaFacade;

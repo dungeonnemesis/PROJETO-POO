@@ -22,14 +22,23 @@ public class Turma {
 	@JoinColumn(name = "disciplina_id", nullable = false)
 	private Disciplina disciplina;
 
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "professor_id")
+	private Professor professor;
+
 	protected Turma() {
 		// Construtor exigido pelo JPA.
 	}
 
-	public Turma(String nome, Integer ano, Disciplina disciplina) {
+	public Turma(String nome, Integer ano, Disciplina disciplina, Professor professor) {
 		this.nome = nome;
 		this.ano = ano;
 		this.disciplina = disciplina;
+		this.professor = professor;
+	}
+
+	public Turma(String nome, Integer ano, Disciplina disciplina) {
+		this(nome, ano, disciplina, null);
 	}
 
 	public Long getId() {
@@ -58,5 +67,13 @@ public class Turma {
 
 	public void setDisciplina(Disciplina disciplina) {
 		this.disciplina = disciplina;
+	}
+
+	public Professor getProfessor() {
+		return professor;
+	}
+
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
 	}
 }

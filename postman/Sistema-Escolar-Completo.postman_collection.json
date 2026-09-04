@@ -1,0 +1,19 @@
+{
+  "info": {
+    "name": "Sistema Escolar Completo",
+    "description": "Fluxo de demonstracao: disciplina, professor, aluno, turma, matricula e nota.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [{"key":"baseUrl","value":"http://localhost:8080/api"}],
+  "item": [
+    {"name":"1 - Criar disciplina","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"nome\":\"POO\",\"cargaHoraria\":60}"},"url":"{{baseUrl}}/disciplinas"}},
+    {"name":"2 - Criar professor","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"nome\":\"Carlos Lima\",\"cpf\":\"55566677788\",\"email\":\"carlos@escola.com\",\"especialidade\":\"POO\"}"},"url":"{{baseUrl}}/professores"}},
+    {"name":"3 - Criar aluno","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"nome\":\"Ana Souza\",\"cpf\":\"11122233344\",\"email\":\"ana@escola.com\",\"matricula\":\"2026001\"}"},"url":"{{baseUrl}}/alunos"}},
+    {"name":"4 - Criar turma","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"nome\":\"Turma 2026.1\",\"ano\":2026,\"disciplinaId\":1,\"professorId\":1}"},"url":"{{baseUrl}}/turmas"}},
+    {"name":"5 - Realizar matricula","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"data\":\"2026-09-04\",\"status\":\"ATIVA\",\"alunoId\":2,\"turmaId\":1}"},"url":"{{baseUrl}}/matriculas"}},
+    {"name":"6 - Registrar nota","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"valor\":8.5,\"matriculaId\":1}"},"url":"{{baseUrl}}/notas"}},
+    {"name":"7 - Listar matriculas","request":{"method":"GET","url":"{{baseUrl}}/matriculas"}},
+    {"name":"8 - Listar notas","request":{"method":"GET","url":"{{baseUrl}}/notas"}},
+    {"name":"9 - Validar nota invalida","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"valor\":11,\"matriculaId\":1}"},"url":"{{baseUrl}}/notas"}}
+  ]
+}
