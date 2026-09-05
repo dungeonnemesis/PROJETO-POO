@@ -36,9 +36,14 @@ public class TurmaDisciplinaService {
 
 	@Transactional
 	public void remover(Long turmaId, Long gradeId) {
-		TurmaDisciplina grade = repositorio.findById(gradeId)
+		var turma = turmaService.buscar(turmaId);
+		TurmaDisciplina grade = turma.getGrade().stream()
+				.filter(item -> item.getId().equals(gradeId))
+				.findFirst()
 				.orElseThrow(() -> new RecursoNaoEncontradoException("Grade da turma", gradeId));
-		if (!grade.getTurma().getId().equals(turmaId)) throw new RecursoNaoEncontradoException("Grade da turma", gradeId);
-		repositorio.delete(grade);
+		// Removido da coleção da turma (dona do orphanRemoval) em vez de repositorio.delete(grade):
+		// apagar a entidade filha diretamente, enquanto ela ainda consta em Turma.grade (cascade=ALL,
+		// orphanRemoval=true), faz o Hibernate ignorar o delete no flush.
+		turma.getGrade().remove(grade);
 	}
 }
